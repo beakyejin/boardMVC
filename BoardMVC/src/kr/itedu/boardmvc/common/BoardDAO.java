@@ -24,7 +24,7 @@ public class BoardDAO {
 	}
 	
 	//모든 데이터 들고오기
-	public ArrayList<BoardVO> getBoardList(int btype) {
+	public ArrayList<BoardVO> getBoardList(int btype, int pmaxNum, int pminNum) {
 		ArrayList<BoardVO> result = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -33,11 +33,20 @@ public class BoardDAO {
 		try {
 			 con = getConn();
 			 
-			 String query = " select bid, btitle, bcontent, bregdate "
-			 		+ " from t_board"+ btype +" order by bid desc ";
+//			 String query = " select bid, btitle, bcontent, bregdate "
+//			 		+ " from t_board"+ btype +" order by bid desc ";
 			 
-
+			 String query = "select * from ( " + 
+			 		"    select rownum as rnum, z.* from ( " + 
+			 		"        select * from t_board" + btype+  
+			 		"        order by bid desc " + 
+			 		"        ) z where rownum <= ?" + 
+			 		") where rnum >= ? ";
+			 
+			 
 			 ps = con.prepareStatement(query);
+			 ps.setInt(1, pmaxNum);
+			 ps.setInt(2, pminNum);
 			 rs = ps.executeQuery();
 			 
 			 while(rs.next()) {
@@ -54,7 +63,6 @@ public class BoardDAO {
 				 
 				 result.add(mo);
 			 }
-			 
 			 
 		} catch (SQLException e) {
 			//TODO: 예외처리
@@ -195,6 +203,36 @@ public class BoardDAO {
 		} finally {
 			close(con, ps, null);
 		}
+	}
+
+	public int getMaxNum(int btype) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int max = 0;
+		
+		try {
+			con = getConn();
+			
+			String query = " select max(bid) as max_num from t_board"+btype;
+			
+			ps = con.prepareStatement(query);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				max = rs.getInt("max_num");
+			}
+			
+		}catch (SQLException e) {
+			//TODO: 예외처리
+			e.printStackTrace();
+		} catch (Exception e) {
+			//TODO: 예외처리
+			e.printStackTrace();
+		} finally {
+			close(con, ps, rs);
+		}
+		return max;
 	}
 	
 }

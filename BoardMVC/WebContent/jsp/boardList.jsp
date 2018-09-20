@@ -17,8 +17,8 @@
 			<tbody>
 			<c:forEach var="vo" items="${data}" varStatus="status">
 				<tr>
-					<td>${status.count}</td>
-					<td><a href="boardDetail.bo?btype=${param.btype}&bid=${vo.bid}">
+					<td>${vo.bid}</td>
+					<td><a href="boardDetail.bo?btype=${param.btype}&bid=${vo.bid}&page=${param.page}">
 						${vo.btitle}</a> 
 						</td>
 					<td>${vo.bregdate}</td>
@@ -26,6 +26,13 @@
 			</c:forEach>
 			</tbody>
 		</table>
+		<div>
+		<b><< <
+			<c:forEach var="pp" begin="1" end="${indexCount +1}">
+				<a href="boardList.bo?btype=${param.btype}&page=${pp}">${pp}</a>
+			</c:forEach>
+		> >></b>	
+		</div>
 		</c:when>
 		<c:otherwise>
 			게시글이 없습니다.

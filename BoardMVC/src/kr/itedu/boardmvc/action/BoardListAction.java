@@ -24,9 +24,20 @@ public class BoardListAction implements Action{
 		/*getParameter 1(get방식 url) 2(포스트 메세지body,url)에서 얻어옴
 		 우선순위:  1url 2메세지body */
 		
-		ArrayList<BoardVO> data = service.getBoardList(btype);//data들고오기
+		int page = Integer.parseInt(request.getParameter("page"));
+				
+		//페이징
+		int pageCount=15;
+		int maxBid = service.getMaxNum(btype);
+		int indexCount = maxBid/pageCount;
+		
+		int pmaxNum = page * pageCount;
+		int pminNum = (page-1)*pageCount + 1;
+		
+		ArrayList<BoardVO> data = service.getBoardList(btype, pmaxNum,pminNum);//data들고오기
 		/*--------------------------------------------------------*/
 		
+		request.setAttribute("indexCount", indexCount);
 		request.setAttribute("title", Var.TITLES[btype]);
 		request.setAttribute("content", "boardList");
 		//request.setAttribute("btype", btype); 

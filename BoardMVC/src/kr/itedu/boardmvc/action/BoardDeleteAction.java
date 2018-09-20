@@ -16,11 +16,12 @@ public class BoardDeleteAction implements Action {
 		
 		int btype = Utils.getParamInt(request.getParameter("btype"));
 		int bid = Integer.parseInt(request.getParameter("bid"));
+		int page = Integer.parseInt(request.getParameter("page"));
 		
 		BoardDeleteService service = new BoardDeleteService();
 		service.boardDelete(btype, bid);
 
-		forward.setPath("boardList.bo?btype="+btype);
+		forward.setPath("boardList.bo?btype="+btype+"&page="+page);
 		forward.setRedirect(true);
 		
 		return forward;

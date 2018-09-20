@@ -22,6 +22,7 @@ public class WriteSubmitAction implements Action {
 		
 		int bid = Integer.parseInt(request.getParameter("bid"));
 		int btype = Utils.getParamInt(request.getParameter("btype"));
+		int page = Integer.parseInt(request.getParameter("page"));
 		String title = request.getParameter("btitle");
 		String content = request.getParameter("bcontent");
 		
@@ -33,10 +34,10 @@ public class WriteSubmitAction implements Action {
 
 		if(bid > 0) {
 			service.boardUpeate(vm);
-			forward.setPath("boardDetail.bo?btype="+btype+"&bid="+bid);
+			forward.setPath("boardDetail.bo?btype="+btype+"&bid="+bid+"&page="+page);
 		}else {
 			service.boardInsert(vm);
-			forward.setPath("boardList.bo?btype="+btype);
+			forward.setPath("boardList.bo?btype="+btype+"&page="+page);
 		}
 		
 		return forward;

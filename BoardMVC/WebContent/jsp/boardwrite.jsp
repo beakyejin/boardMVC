@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<form action="writeSubmit.bo?btype=${param.btype}&bid=${param.bid}" method="post">
+<form action="writeSubmit.bo?btype=${param.btype}&bid=${param.bid}&page=${param.page}" method="post">
 	<table>
 		<c:choose>
 	<c:when test="${param.bid !=0}">
