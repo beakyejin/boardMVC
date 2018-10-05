@@ -26,6 +26,8 @@
 	</div>
 	<form action="commentWrite.bo?btype=${param.btype}&bid=${param.bid}" method="post">
 	<div class="comment">
+		<input type="hidden" name="bid" value="${param.bid}">
+		<input type="hidden" name="btype" value="${param.btype}">
 		<div class="sub">
 			<textarea id="comment" name="comment"></textarea> 
 			<input type="submit" class="cmtbtn" value="댓글 등록">
@@ -39,6 +41,9 @@
 					<td style="text-align: center">${state.count}</td>
 					<td style="text-align: center; width: 900px">${vo2.t_comment}</td>
 					<td style="text-align: center">${vo2.cregdate}</td>
+					<td>
+						<input type="button" value="삭제" onclick="location.href='commentDelete.bo?cid=${vo2.cid}&bid=${vo2.bid}&btype=${vo2.btype}'">
+					</td>
 				</tr>
 			</c:forEach>
 			</table>

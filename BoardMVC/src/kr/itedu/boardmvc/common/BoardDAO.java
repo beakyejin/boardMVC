@@ -309,5 +309,31 @@ public class BoardDAO {
 		
 		return result;
 	}
+
+	public void commentDelete(int cid) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			con = getConn();
+			
+			String query = "delete from t_comment"
+					+ " where cid=?";
+			
+			
+			ps = con.prepareStatement(query);
+			ps.setInt(1, cid);
+			ps.executeQuery();
+			
+		}catch (SQLException e) {
+			//TODO: 예외처리
+		} catch (Exception e) {
+			//TODO: 예외처리
+		} finally {
+			close(con, ps, null);
+		}
+		
+	}
 	
 }

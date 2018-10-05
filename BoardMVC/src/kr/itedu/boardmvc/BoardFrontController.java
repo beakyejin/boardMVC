@@ -14,6 +14,7 @@ import kr.itedu.boardmvc.action.BoardDeleteAction;
 import kr.itedu.boardmvc.action.BoardDetailAction;
 import kr.itedu.boardmvc.action.BoardListAction;
 import kr.itedu.boardmvc.action.BoardWriteAction;
+import kr.itedu.boardmvc.action.CommentDeleteAction;
 import kr.itedu.boardmvc.action.CommentWriteAction;
 import kr.itedu.boardmvc.action.WriteSubmitAction;
 
@@ -84,8 +85,15 @@ public class BoardFrontController extends HttpServlet {
 			}catch (Exception e) {
 				// TODO: handle exception
 			}
+		}else if(comd.equals("/commentDelete.bo")) {
+			action = new CommentDeleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
-		
 		
 		if(forward != null) {
 			//Redirect로 보낼건지 아닌지 판단. isRedirect()의 default값은 false.

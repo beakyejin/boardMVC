@@ -34,8 +34,7 @@ public class BoardDetailService {
 		System.out.printf("btype: %d\n", btype);
 		System.out.printf("bid: %d\n", bid);
 		for(CommentVO vo : result) {
-			System.out.printf("%d | %s | %s", vo.getCid(), vo.getT_comment(), vo.getCregdate());
-			System.out.println("-------------");
+			System.out.printf("%d | %s | %s\n", vo.getCid(), vo.getT_comment(), vo.getCregdate());
 		}
 		
 		return result;
