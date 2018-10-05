@@ -14,6 +14,7 @@ import kr.itedu.boardmvc.action.BoardDeleteAction;
 import kr.itedu.boardmvc.action.BoardDetailAction;
 import kr.itedu.boardmvc.action.BoardListAction;
 import kr.itedu.boardmvc.action.BoardWriteAction;
+import kr.itedu.boardmvc.action.CommentWriteAction;
 import kr.itedu.boardmvc.action.WriteSubmitAction;
 
 @WebServlet("*.bo")
@@ -69,6 +70,14 @@ public class BoardFrontController extends HttpServlet {
 			}
 		}else if(comd.equals("/boardDelete.bo")) {
 			action = new BoardDeleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+		}else if(comd.equals("/commentWrite.bo")) {
+			action = new CommentWriteAction();
 			
 			try {
 				forward = action.execute(request, response);

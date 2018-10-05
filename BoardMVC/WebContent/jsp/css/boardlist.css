@@ -5,7 +5,6 @@ table{
 table, td, th, tr{
 	border: 1px solid #000;
 	border-collapse: collapse;
-	text-align: center;
 }
 a{
 	color: black;

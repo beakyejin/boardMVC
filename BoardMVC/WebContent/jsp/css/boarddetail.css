@@ -2,11 +2,44 @@
 table{
 	width: 100%;
 }
-table, td, th, tr{
+.datatable, .datatable td, .datatable th, .datatable tr{
 	border: 1px solid #000;
 	border-collapse: collapse;
 	text-align: center;
 }
 table td, table th{
 	padding: 10px;
+}
+div .comment{
+	width: 100%;
+	padding:10px;
+	background-color: gray;
+	float:left;
+}
+.sub{
+	width: 100%;
+}
+textarea{
+	padding:10px;
+	width:90%;
+	height: 80px;
+	vertical-align: bottom;
+	float: left;
+}
+.cmtbtn{
+	width:10%;
+	height: 80px;
+}
+.cmttable, .cmttable td, .cmttable th, .cmttable tr{
+	border-bottom: 1px solid #a4a4a4;
+	border-collapse: collapse;
+}
+.empty{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.btndiv{
+	float:right;
+	margin: 10px 0;
 }

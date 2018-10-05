@@ -21,8 +21,14 @@ public class BoardDetailAction implements Action {
 		BoardDetailService service = new BoardDetailService();
 		int btype = Utils.getParamInt(request.getParameter("btype"));//utils에서 btype값 확인하여 넘겨주기
 		int bid = Integer.parseInt(request.getParameter("bid"));
-		ArrayList<BoardVO> data = service.getBoardDetail(btype, bid);
 		
+		//글보기
+		ArrayList<BoardVO> data = service.getBoardDetail(btype, bid);
+		//댓글 불러오기
+		ArrayList<CommentVO> cmtlist = service.getCommentList(btype, bid);
+		
+		request.setAttribute("cmtlist", cmtlist);
+		request.setAttribute("cmtlsize", cmtlist.size());
 		request.setAttribute("title", Var.TITLES[btype]+"글 보기");
 		request.setAttribute("content", "boarddetail");
 		request.setAttribute("data", data);

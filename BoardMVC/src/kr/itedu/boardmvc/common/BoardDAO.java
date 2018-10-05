@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.naming.NamingException;
 
 import kr.itedu.boardmvc.action.BoardVO;
+import kr.itedu.boardmvc.action.CommentVO;
 
 public class BoardDAO {
 	private static BoardDAO dao;
@@ -233,6 +234,80 @@ public class BoardDAO {
 			close(con, ps, rs);
 		}
 		return max;
+	}
+
+	public void commentInsert(CommentVO vm) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			con = getConn();
+			
+			String query = " INSERT INTO T_COMMENT "
+					+ " (CID, BID, BTYPE, T_COMMENT) "
+					+ " VALUES "
+					+ " ( (SELECT NVL(MAX(CID),0)+1 FROM T_COMMENT), ?, ?, ?) ";
+
+			ps = con.prepareStatement(query);
+			ps.setInt(1, vm.getBid());
+			ps.setInt(2, vm.getBtype());
+			ps.setString(3, vm.getT_comment());
+			ps.executeQuery();
+			
+		}catch (SQLException e) {
+			//TODO: 예외처리
+		} catch (Exception e) {
+			//TODO: 예외처리
+		} finally {
+			close(con, ps, null);
+		}
+	}
+
+	public ArrayList<CommentVO> getCommentList(int _btype, int _bid) {
+		ArrayList<CommentVO> result = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		try {
+			con = getConn();
+			
+			String query = " SELECT CID, BID, BTYPE, T_COMMENT, CREGDATE "
+					+ " FROM T_COMMENT "
+					+ " WHERE BID=? AND BTYPE=?";
+					
+			ps = con.prepareStatement(query);
+			ps.setInt(1, _bid);
+			ps.setInt(2, _btype);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				int cid = rs.getInt("cid");
+				int bid = rs.getInt("bid");
+				int btype = rs.getInt("btype");
+				String t_comment = rs.getString("t_comment");
+				String cregdate = rs.getString("cregdate");
+				
+				CommentVO mo = new CommentVO();
+				mo.setBid(bid);
+				mo.setCid(cid);
+				mo.setBtype(btype);
+				mo.setT_comment(t_comment);
+				mo.setCregdate(cregdate);
+				
+				result.add(mo);
+			}
+			
+		}catch (SQLException e) {
+			//TODO: 예외처리
+		} catch (Exception e) {
+			//TODO: 예외처리
+		} finally {
+			close(con, ps, rs);
+		}
+		
+		return result;
 	}
 	
 }

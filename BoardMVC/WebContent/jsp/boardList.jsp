@@ -17,24 +17,20 @@
 			<tbody>
 			<c:forEach var="vo" items="${data}" varStatus="status">
 				<tr>
-					<td>${vo.bid}</td>
+					<td  style="text-align: center">${vo.bid}</td>
 					<td><a href="boardDetail.bo?btype=${param.btype}&bid=${vo.bid}&page=${param.page}">
 						${vo.btitle}</a> 
 						</td>
-					<td>${vo.bregdate}</td>
+					<td style="text-align: center">${vo.bregdate}</td>
 				</tr>
 			</c:forEach>
 			</tbody>
 		</table>
 		<div>
 		<b>
-		<a href="boardList.bo?btype=${param.btype}&page=1"> << </a> 
-		<a href="boardList.bo?btype=${param.btype}&page=${param.page-1}"> < </a>
 			<c:forEach var="pp" begin="1" end="${indexCount}" step="1">
 				<span><a href="boardList.bo?btype=${param.btype}&page=${pp}">${pp}</a></span>
 			</c:forEach>
-		<a href="boardList.bo?btype=${param.btype}&page=${param.page+1}"> > </a>
-		<a href="boardList.bo?btype=${param.btype}&page=${indexCount}"> >> </a>
 		</b>	
 		</div>
 		</c:when>

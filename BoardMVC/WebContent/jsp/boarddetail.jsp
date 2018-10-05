@@ -4,7 +4,7 @@
 <div class="container">
 	<input type="hidden" name="bid" value="${param.bid}">
 	<input type="hidden" name="btype" value="${param.btype}">
-	<table>
+	<table class="datatable">
 	<c:forEach var="vo" items="${data}">
 		<tr>
 			<td>제목</td>
@@ -19,7 +19,36 @@
 		</tr>
 	</c:forEach>
 	</table>
-	<input type="button" value="목록" onclick="location.href='boardList.bo?btype=${param.btype}&page=${param.page}'">
-	<input type="button" value="수정" onclick="location.href='boardWrite.bo?btype=${param.btype}&bid=${param.bid}&page=${param.page}'">
-	<input type="button" value="삭제" onclick="location.href='boardDelete.bo?btype=${param.btype}&bid=${param.bid}&page=${param.page}'">
+	<div class="btndiv">
+		<input type="button" value="목록" onclick="location.href='boardList.bo?btype=${param.btype}&page=${param.page}'">
+		<input type="button" value="수정" onclick="location.href='boardWrite.bo?btype=${param.btype}&bid=${param.bid}&page=${param.page}'">
+		<input type="button" value="삭제" onclick="location.href='boardDelete.bo?btype=${param.btype}&bid=${param.bid}&page=${param.page}'">
+	</div>
+	<form action="commentWrite.bo?btype=${param.btype}&bid=${param.bid}" method="post">
+	<div class="comment">
+		<div class="sub">
+			<textarea id="comment" name="comment"></textarea> 
+			<input type="submit" class="cmtbtn" value="댓글 등록">
+		</div>
+		<div>
+		<c:choose>
+		<c:when test="${cmtlsize > 0}">
+			<table class="cmttable">
+			<c:forEach var="vo2" items="${cmtlist}" varStatus="state" >
+				<tr>
+					<td style="text-align: center">${state.count}</td>
+					<td style="text-align: center; width: 900px">${vo2.t_comment}</td>
+					<td style="text-align: center">${vo2.cregdate}</td>
+				</tr>
+			</c:forEach>
+			</table>
+		</c:when>
+		<c:otherwise>
+			<div class="empty"><p>댓글이 없습니다.</p></div>
+		</c:otherwise>			
+		</c:choose>
+		</div>
+	</div>
+	</form>
+	
 </div>
