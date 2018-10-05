@@ -41,7 +41,7 @@ public class BoardDAO {
 			 		"        select * from t_board" + btype+  
 			 		"        order by bid desc " + 
 			 		"        ) z where rownum <= ?" + 
-			 		") where rnum >= ? ";
+			 		") where rnum > ? ";
 			 
 			 
 			 ps = con.prepareStatement(query);
@@ -220,7 +220,7 @@ public class BoardDAO {
 			rs = ps.executeQuery();
 			
 			if(rs.next()) {
-				max = rs.getInt("max_num");
+				max = rs.getInt(1);
 			}
 			
 		}catch (SQLException e) {

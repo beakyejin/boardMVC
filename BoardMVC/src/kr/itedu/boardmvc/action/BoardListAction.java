@@ -27,17 +27,17 @@ public class BoardListAction implements Action{
 		int page = Integer.parseInt(request.getParameter("page"));
 				
 		//페이징
-		int pageCount=15;
+		int pageCount=10;
 		int maxBid = service.getMaxNum(btype);
 		int indexCount = maxBid/pageCount;
 		
 		int pmaxNum = page * pageCount;
-		int pminNum = (page-1)*pageCount + 1;
+		int pminNum = (page-1)*pageCount;
 		
 		ArrayList<BoardVO> data = service.getBoardList(btype, pmaxNum,pminNum);//data들고오기
 		/*--------------------------------------------------------*/
 		
-		request.setAttribute("indexCount", indexCount);
+		request.setAttribute("indexCount", indexCount+1);
 		request.setAttribute("title", Var.TITLES[btype]);
 		request.setAttribute("content", "boardList");
 		//request.setAttribute("btype", btype); 

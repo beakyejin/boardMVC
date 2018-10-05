@@ -27,11 +27,15 @@
 			</tbody>
 		</table>
 		<div>
-		<b><< <
-			<c:forEach var="pp" begin="1" end="${indexCount +1}">
-				<a href="boardList.bo?btype=${param.btype}&page=${pp}">${pp}</a>
+		<b>
+		<a href="boardList.bo?btype=${param.btype}&page=1"> << </a> 
+		<a href="boardList.bo?btype=${param.btype}&page=${param.page-1}"> < </a>
+			<c:forEach var="pp" begin="1" end="${indexCount}" step="1">
+				<span><a href="boardList.bo?btype=${param.btype}&page=${pp}">${pp}</a></span>
 			</c:forEach>
-		> >></b>	
+		<a href="boardList.bo?btype=${param.btype}&page=${param.page+1}"> > </a>
+		<a href="boardList.bo?btype=${param.btype}&page=${indexCount}"> >> </a>
+		</b>	
 		</div>
 		</c:when>
 		<c:otherwise>
